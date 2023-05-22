@@ -1,0 +1,33 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: datasources
+data:
+  datasources.json: |
+    {
+      "db": {
+          "name": "db",
+          "connector":"memory"
+          },
+      "mysql": {
+          "host": "{{ .Values.cm.mysql.host }}",
+          "port": {{ .Values.cm.mysql.port }},
+          "url": "",
+          "database": "{{ .Values.cm.mysql.database }}",
+          "password": "{{ .Values.cm.mysql.password }}",
+          "name": "mysql",
+          "user": "{{ .Values.cm.mysql.user }}",
+          "connector": "mysql",
+          "timezone": "local",
+          "connectTimeout": 30000,
+          "acquireTimeout": 30000,
+          "legacyUtcDateProcessing": false
+          },
+      "fileData": {
+          "name": "fileData",
+          "provider": "filesystem",
+          "root": "/data/ds/file/",
+          "connector": "loopback-component-storage",
+          "maxFileSize": "900mb"
+          }
+    }

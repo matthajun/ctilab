@@ -1,0 +1,26 @@
+apiVersion: v3
+name: dti-service_infra
+type: application
+version: 0.0.1
+appVersion: "0.0.1"
+dependencies:
+  - name: dti-airflow
+    version: 1.7.0
+    repository: file://../dti-airflow
+    condition: global.airflow.use
+  - name: dti-clickhouse
+    version: 1.0.1
+    repository: file://../dti-clickhouse
+    condition: global.clickhouse.use
+  - name: dti-fe
+    version: 0.0.1
+    repository: file://../dti-fe
+    condition: global.fe.use
+  - name: dti-sv
+    version: 0.0.1
+    repository: file://../dti-sv
+    condition: global.sv.use
+  - name: dti-jupyterlab
+    version: 0.1.38
+    repository: file://../dti-jupyterlab
+    condition: global.jupyterlab.use

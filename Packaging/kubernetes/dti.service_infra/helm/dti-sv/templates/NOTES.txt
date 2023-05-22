@@ -1,0 +1,16 @@
+** Please be patient while the chart is being deployed **
+It takes about a minutes to deploy.
+
+How to access with sv project.
+1. Connect to the server from fe or client through the following address:
+
+    http://[serverIP]:{{ .Values.service.NodePort }}
+
+2. If you know the token value, you can check the appi of sv in 'explorer' below and it can be executed.
+
+    http://[serverIP]:{{ .Values.service.NodePort }}/explorer
+
+3. The connected DB information is as follows.
+
+    clickhouse: {{ .Values.cm.clickhouseUrl }}
+    MySQL: {{ .Values.cm.mysql.host }}:{{ .Values.cm.mysql.port }}

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.deployment.image }}:{{ .Values.deployment.imageVersion }}
+          ports:
+            - containerPort: 3004
+          volumeMounts:
+            - name: environment
+              mountPath: /usr/app/src/environments/environment.dev.ts
+              subPath: environment.dev.ts
+      volumes:
+        - name: environment
+          configMap:
+            name: environment

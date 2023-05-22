@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  serviceName: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.statefulset.image }}:{{ .Values.statefulset.imageVersion }}
+          ports:
+              - containerPort: 3003
+          volumeMounts:
+            - name: datasources
+              mountPath: /usr/app/server/datasources.json
+              subPath: datasources.json
+            - name: config
+              mountPath: /usr/app/server/config.json
+              subPath: config.json
+            - name: key
+              mountPath: /usr/app/server/private
+      volumes:
+        - name: datasources
+          configMap:
+            name: datasources
+        - name: config
+          configMap:
+            name: config
+        - name: key
+          secret:
+            secretName: {{ .Release.Name }}
+            items:
+              - key: tls.key
+                path: privatekey.pem
+              - key: tls.crt
+                path: certificate.pem

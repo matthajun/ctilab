@@ -1,0 +1,199 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: config
+data:
+  config.json: |
+    {
+      "restApiRoot": "/api",
+      "host": "0.0.0.0",
+      "port": 3003,
+      "remoting": {
+        "context": false,
+        "rest": {
+          "handleErrors": false,
+          "normalizeHttpPath": false,
+          "xml": false
+        },
+        "json": {
+          "strict": false,
+          "limit": "50mb"
+        },
+        "urlencoded": {
+          "extended": true,
+          "limit": "50mb"
+        },
+        "cors": false
+      },
+      "demo": {
+        "nats_url": "nats://app_nats:4222"
+      },
+      "ADS": {
+        "host": "172.23.192.52",
+        "meta_url": "/com/ctilab/aisSnrAjax.do",
+        "result_url": "/com/ctilab/aisMntSrcAjax.do",
+        "feedback": "dti.dti_ai_feedback",
+        "inference": {
+          "http": "select '{MODEL_HASH}' as model_hash, 'http' as table_type, dev_id as dti_log_source_id, dev_nm as dti_log_type_id, logdate, logtime, start_time, end_time, hash, src_ip, src_port, dst_ip, dst_port, packets_forward, packets_backward, bytes_forward, bytes_backward, rule, dpi_id, protocol, app, md5, md5_filesize, md5_filename, md5_filetype, md5_dir, http_method, http_host, http_server, http_retcode, http_ctype, http_agent, http_path, http_proto, http_clen, http_connect, http_cdis, http_xfor, naver_mail, daum_mail, nate_mail, http_a_enc, http_cookie, http_cenc, http_cache, http_refer, http_range, http_tenc, http_query, http_mb, '-' as ssl_sip, 0 as ssl_sport, '-' as ssl_dip, 0 as ssl_dport from dti_qm_httpd where logtime >= '{START_TIME}' and end_time <= '{END_TIME}' and src_ip = '{SRC_IP}' FORMAT JSON limit 1000",
+          "http_dst": "select '{MODEL_HASH}' as model_hash, 'http' as table_type, dev_id as dti_log_source_id, dev_nm as dti_log_type_id, logdate, logtime, start_time, end_time, hash, src_ip, src_port, dst_ip, dst_port, packets_forward, packets_backward, bytes_forward, bytes_backward, rule, dpi_id, protocol, app, md5, md5_filesize, md5_filename, md5_filetype, md5_dir, http_method, http_host, http_server, http_retcode, http_ctype, http_agent, http_path, http_proto, http_clen, http_connect, http_cdis, http_xfor, naver_mail, daum_mail, nate_mail, http_a_enc, http_cookie, http_cenc, http_cache, http_refer, http_range, http_tenc, http_query, http_mb, '-' as ssl_sip, 0 as ssl_sport, '-' as ssl_dip, 0 as ssl_dport from dti_qm_httpd where logtime >= '{START_TIME}' and end_time <= '{END_TIME}' and src_ip = '{SRC_IP}' and dst_ip = '{DST_IP}' FORMAT JSON limit 1000",
+          "dns": "select '{MODEL_HASH}' as model_hash, 'http' as table_type, dev_id as dti_log_source_id, dev_nm as dti_log_type_id, logdate, logtime, start_time, end_time, hash, src_ip, src_port, dst_ip, dst_port, packets_forward, packets_backward, bytes_forward, bytes_backward, rule, dpi_id, protocol, app, md5, md5_filesize, md5_filename, md5_filetype, md5_dir, dns_query, dns_answer from dti_qm_dnsd where logtime >= '{START_TIME}' and end_time <= '{END_TIME}' and src_ip = '{SRC_IP}' FORMAT JSON limit 1000",
+          "dns_dst ": "select '{MODEL_HASH}' as model_hash, 'http' as table_type, dev_id as dti_log_source_id, dev_nm as dti_log_type_id, logdate, logtime, start_time, end_time, hash, src_ip, src_port, dst_ip, dst_port, packets_forward, packets_backward, bytes_forward, bytes_backward, rule, dpi_id, protocol, app, md5, md5_filesize, md5_filename, md5_filetype, md5_dir, dns_query, dns_answer from dti_qm_dnsd where logtime >= '{START_TIME}' and end_time <= '{END_TIME}' and src_ip = '{SRC_IP}' and dst_ip = '{DST_IP}' FORMAT JSON limit 1000",
+          "default.inf": "test"
+        },
+        "splunk": {
+          "host": [
+            "192.168.75.161",
+            "192.168.75.162"
+          ],
+          "port": 10514
+        }
+      },
+      "packet": {
+        "beacons": "dti.packet_rita_beaconsd",
+        "bl-source-ips": "dti.packet_rita_bl_src_ips",
+        "bl-dest-ips": "dti.packet_rita_bl_dst_ipsd",
+        "bl-urls": "dti.packet_rita_bl_urlsd",
+        "long-connections": "dti.packet_rita_long_connd"
+      },
+      "menuConfig": {
+        "pushApi": false,
+        "ads": false
+      },
+      "dtiConfig": {
+        "apiBackupPath": "/backup",
+        "esBackupPath": "/data/ds/file/origin/",
+        "dbBackupPath": "/data/ds/file/db/",
+        "yaraStoragePath": "/data/ds/file/yara/",
+        "repStoragePath": "/data/ds/file/rep/",
+        "mapStoragePath": "/data/ds/file/map/GeoLite2-City.mmdb",
+        "fileStoragePath": "/data/ds/file/file/",
+        "readerBackupPath": "/data/reader",
+        "ids2RuleParserExec": "/data/ds/file/ids2_rule_parser.exe",
+        "virusTotalKey": "ddef714d4aca3b151dd21f88cebb5711311294f723f141d825e8185caad360a5",
+        "virusTotalUrl": "https://www.virustotal.com/vtapi/v2/file/report",
+        "dbName": "elasticsearch",
+        "dbName_desc": "elasticsearch or clickhouse",
+        "tsharkApiUrl": "http://211.115.206.6:3006/tshark",
+        "intelligenceUrl": "http://app_global:3010/global",
+        "osintUrl": {
+          "v1": "/api/cifs/osint?access_token=",
+          "v2": "/api/cifs/osint_v2?access_token="
+        },
+        "easyUI": {
+          "riskThreshold": [
+            10,
+            15
+          ]
+        },
+        "backUpFileUrl": "http://211.115.206.6:19910/api/backup",
+        "importUrl": "http://app_reader:19910/import",
+        "clickhouse": {
+          "RestApiUrl": [
+            "{{ .Values.cm.clickhouseUrl }}"
+          ],
+          "replicate": false,
+          "config": {
+            "add_http_cors_header": 1,
+            "log_queries": 1,
+            "output_format_json_quote_64bit_integers": 1,
+            "database": "default",
+            "result_overflow_mode": "throw",
+            "max_result_rows": 50000,
+            "timeout_overflow_mode": "throw",
+            "max_execution_time": 5000
+          }
+        },
+        "health": {
+          "url": [
+            "http://211.115.206.6:5757/getStatus",
+            "http://211.115.206.6:5758/getStatus"
+          ],
+          "useYn": "OFF",
+          "interval": 5
+        },
+        "focs": {
+          "login_url": "/securitymanager/api/authentication/login",
+          "device_url": "/securitymanager/api/domain/1/device?pageSize=100",
+          "username": "firemon",
+          "password": "firemon"
+        },
+        "splunk": {
+          "username": "datawide_user",
+          "password": "datawide",
+          "login_url": "https://192.168.75.167:8089/services/auth/login",
+          "search_url": "https://192.168.75.167:8089/servicesNS/datawide_user/shb_collect/search/jobs"
+        },
+        "policyCollectorUrl": "http://app_policy:3080/getPolicy",
+        "receiverUrl": "http://app_receiver:1517/Receiver",
+        "detectUrl": "http://app_detect:3090",
+        "stixReceiverUrl": "http://app_taxii:3004/StixReceiver",
+        "systemServiceUrl": "http://portainer:9000",
+        "cifReceiverUrl": "http://app_cif:5000/CifReceiver",
+        "reportApiUrl": "http://211.115.206.6:3007/report",
+        "webFwUrl": {
+          "control": "http://211.115.206.6:4848/control",
+          "synchronization": "http://211.115.206.6:4848/synchronization",
+          "getList": "http://:4848/getList"
+        },
+        "web_redis": {
+          "ip": "app_web_redis",
+          "port": 6379
+        },
+        "stix_redis": {
+          "ip": "app_stix_redis",
+          "port": 6379
+        },
+        "cif_redis": {
+          "ip": "app_cif_redis",
+          "port": 6379
+        },
+        "unusable_field_name": [
+          "_type",
+          "cif",
+          "cif_value",
+          "agent_ip",
+          "log_type",
+          "log_source_id",
+          "log_source_name",
+          "log_source_type_name",
+          "log",
+          "attacker_country",
+          "attacker_country_name",
+          "latlng",
+          "description",
+          "tg_mv_type",
+          "tg_in_ip",
+          "tg_in_port",
+          "tg_in_mac",
+          "tg_in_ctx",
+          "tg_in_ip2",
+          "tg_in_port2",
+          "tg_in_mac2",
+          "tg_in_ctx2",
+          "tg_out_ip",
+          "tg_out_port",
+          "tg_out_mac",
+          "tg_re_category",
+          "tg_re",
+          "tg_black",
+          "tg_white",
+          "tg_re_score",
+          "tg_re_malicious",
+          "file",
+          "file_id",
+          "tg_file",
+          "tg_file_hash",
+          "tg_file_mime",
+          "tg_file_size",
+          "tg_file_yara",
+          "tg_file_yara_rule",
+          "tg_file_yara_rule_group",
+          "tg_file_malware",
+          "tg_file_malware_data",
+          "tg_file_malware_feature",
+          "tg_file_malware_image",
+          "tg_file_malware_severity",
+          "tg_file_malware_unknown"
+        ]
+      }
+    }

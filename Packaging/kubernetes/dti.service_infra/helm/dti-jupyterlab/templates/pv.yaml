@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jupyterlab
+spec:
+  capacity:
+    storage: 30Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: jupyterlab-nfs
+  mountOptions:
+    - hard
+    - nfsvers=3
+  nfs:
+    server: 211.115.206.10
+    path: /data/workspace

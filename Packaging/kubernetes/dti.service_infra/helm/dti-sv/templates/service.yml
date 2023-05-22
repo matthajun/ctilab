@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 3003
+      targetPort: 3003
+      protocol: TCP
+      name: http
+      {{- if (eq "NodePort" .Values.service.type) }}
+      nodePort : {{ .Values.service.NodePort }}
+      {{- end}}
+  selector:
+    app: {{ .Release.Name }}

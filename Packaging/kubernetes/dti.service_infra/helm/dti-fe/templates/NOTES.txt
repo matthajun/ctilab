@@ -1,0 +1,9 @@
+** Please be patient while the chart is being deployed **
+It takes about 5 minutes to deploy.
+
+How to access with fe project.
+1. Connect to the server through the following ports:
+
+    http://[serverIP]:{{ .Values.service.NodePort }}
+
+2. If you do not know the account information, contact the platform development team.

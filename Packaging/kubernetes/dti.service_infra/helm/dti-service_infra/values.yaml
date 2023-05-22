@@ -1,0 +1,16 @@
+global:
+  airflow:
+    # whether to use airflow
+    use: true
+  clickhouse:
+    # whether to use clickhouse DB
+    use: true
+  fe:
+    # whether to use fe web
+    use: true
+  sv:
+    # whether to use sv
+    use: true
+  jupyterlab:
+    # whether to use jupyterlab
+    use: true

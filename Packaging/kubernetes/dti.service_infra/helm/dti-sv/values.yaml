@@ -1,0 +1,24 @@
+# This file is value.yaml for sv helm chart
+
+cm:
+  # associate with DataBase
+  clickhouseUrl: "http://211.115.206.6:8123"
+
+  mysql:
+    host: "mariadb-service"
+    port: 3306
+    database: "dti"
+    password: "ctipwd1"
+    user: "root"
+
+statefulset:
+  # sv image name
+  image: "ctilabworkernode1:5000/ctilab/dti_sv"
+  imageVersion: "1.0.0-alpha"
+  replicas: 3
+
+service:
+  type: ClusterIP
+  # NodePort number, between 30000 ~ 32767
+  # If Type is NodePort not ClusterIP, this value is used in svc
+  NodePort: 30005

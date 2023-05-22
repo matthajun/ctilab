@@ -1,0 +1,17 @@
+# This file is value.yaml for fe helm chart
+
+cm:
+  # associate with sv project
+  environment:
+    host: "http://211.115.206.10"
+    port: 30003
+
+# fe image name
+deployment:
+  image: "ctilabworkernode1:5000/ctilab/dti_fe"
+  imageVersion: "1.0.0-proto"
+  replicas: 3
+
+service:
+  # service nodeport, between 30000 ~ 32767
+  NodePort: 30500

@@ -1,0 +1,40 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: environment
+data:
+  environment.dev.ts: |
+    const packageJson = require('../../package.json');
+
+    export const environment = {
+      appName: 'DTI Master',
+      appFullName: 'DTI.ai Master',
+      copyright: 'CTILab Co., Ltd',
+      envName: 'DEV',
+      production: true,
+      hmr: false,
+      apiUrl:
+      {{- if .Values.cm.environment.host}}
+        '{{ .Values.cm.environment.host}}'
+      {{- else}}
+        'http://localhost'
+      {{- end }}
+      ,
+      apiPort:
+      {{- if .Values.cm.environment.port}}
+        {{ .Values.cm.environment.port}}
+      {{- else}}
+        3003
+      {{- end }}
+      ,
+      versions: {
+        app: packageJson.version,
+        angular: packageJson.dependencies['@angular/core'],
+        ngrx: packageJson.dependencies['@ngrx/store'],
+        material: packageJson.dependencies['@angular/material'],
+        bootstrap: packageJson.dependencies.bootstrap,
+        rxjs: packageJson.dependencies.rxjs,
+        angularCli: packageJson.devDependencies['@angular/cli'],
+        typescript: packageJson.devDependencies['typescript']
+      }
+    };
