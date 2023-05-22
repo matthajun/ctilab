@@ -14,11 +14,11 @@ let cronExp = makeCronExp(-1, -1, -1, -1, -1, -1);
 function makeCronExp(min,hour,day,month,weekday,year) {
     let cronExp = [];
 
-    cronExp.push(min == '-1' || min == null ? '*' : min);
-    cronExp.push(hour == '-1' || hour == null ? '*' : hour);
-    cronExp.push(day == '-1' || day == null ? '*' : day);
-    cronExp.push(month == '-1' || month == null ? '*' : month);
-    cronExp.push(weekday == '-1' || weekday == null ? '*' : weekday);
+    cronExp.push(min === '-1' || min === null ? '*' : min);
+    cronExp.push(hour === '-1' || hour === null ? '*' : hour);
+    cronExp.push(day === '-1' || day === null ? '*' : day);
+    cronExp.push(month === '-1' || month === null ? '*' : month);
+    cronExp.push(weekday === '-1' || weekday === null ? '*' : weekday);
 
     return cronExp.join(' ');
 }
@@ -40,15 +40,15 @@ ns.scheduleJob(cronExp, function () {
     sql = sql + `(intv_day = '-1' AND intv_weekday = '${week_str}' AND intv_hour = '${hour_str}' AND intv_min = '${min_str}') OR `;
     sql = sql + `(intv_day = '${day_str}' AND intv_weekday = '-1' AND intv_hour = '${hour_str}' AND intv_min = '${min_str}')`;
 
-    if (Number(min_str) % 5 == 0) {
+    if (Number(min_str) % 5 === 0) {
         sql += ` OR (intv_min = '*/5')`;
     }
 
-    if (Number(min_str) % 10 == 0) {
+    if (Number(min_str) % 10 === 0) {
         sql += ` or (intv_min = '*/10')`;
     }
 
-    if (Number(min_str) % 30 == 0) {
+    if (Number(min_str) % 30 === 0) {
         sql += ` or (intv_min = '*/30')`;
     }
 

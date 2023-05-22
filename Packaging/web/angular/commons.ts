@@ -26,10 +26,10 @@ export class ApiService {
     API(type: string, path: string, params?: any): Observable<any> {
         this.baseUrl = `${API_BASE_URL}/api`;
         this.path = path;
-        this.paramsLink = this.path.indexOf('?') == -1 ? '?' : '&';
-        this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') != undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
+        this.paramsLink = this.path.indexOf('?') === -1 ? '?' : '&';
+        this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') !== undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
 
-        if(this.token == '') {
+        if(this.token === '') {
             this.router.navigate(['/login']);
         }
 
@@ -94,8 +94,8 @@ export class ApiService {
     eventSource (path: string, params?: any){
         this.baseUrl = `${API_BASE_URL}/api`;
         this.path = path;
-        this.paramsLink = this.path.indexOf('?') == -1 ? '?' : '&';
-        this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') != undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
+        this.paramsLink = this.path.indexOf('?') === -1 ? '?' : '&';
+        this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') !== undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
 
         let url = `${this.baseUrl}${this.path}${this.paramsLink}`;
         url += `access_token=${this.token}`;
@@ -107,10 +107,10 @@ export class ApiService {
     downloadApi(type: string, path: string, params ?: any) {
         this.baseUrl = `${API_BASE_URL}/api`;
         this.path = path;
-        this.paramsLink = this.path.indexOf('?') == -1 ? '?' : '&';
+        this.paramsLink = this.path.indexOf('?') === -1 ? '?' : '&';
         this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') != undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
 
-        if (this.token == '') {
+        if (this.token === '') {
             this.router.navigate(['/login']);
         }
 
@@ -131,7 +131,7 @@ export class ApiService {
     }
 
     pullPathAPI(type: string, path: string, params ?: any): Observable<any> {
-        this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') != undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
+        this.token = this.localStorageService.getItem('APPS.LOGINS.CONTENTS') !== undefined ? this.localStorageService.getItem('APPS.LOGINS.CONTENTS').id : '';
 
         switch (type) {
             case 'get': {
