@@ -20,7 +20,10 @@ K8s helm chart로 구성
 
 
 ## Packaging
+자사제품, DTI.ai 패키징 및 업그레이드 프로젝트
 ### kubernetes
-  * dti.service_infra : 제품 dti 설치 Helm chart
+  - dti.service_infra
+    - helm : 제품 DTI.ai 설치 Helm chart
+    - k8s : kubernetes-dashboard 설치 manifest
 ### web
-패키징 제품, dti 웹 소스코드 (nodeJS - bk, Angular - fe)
+DTI.ai 웹 소스코드 (nodeJS - bk, Angular - fe)
