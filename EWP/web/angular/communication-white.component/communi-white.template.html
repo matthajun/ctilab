@@ -1,0 +1,54 @@
+<div class="system-management-wrap">
+      <div class="system-management-header">
+            <h3>{{ 'communi.title' | translate}}</h3>
+            <p>{{ 'communi.text' | translate}}</p>
+            <div class="btn-area">
+                  <button mat-stroked-button (click)="addRow()"><mat-icon>add</mat-icon> {{'buttons.add' | translate }}</button>
+            </div>
+      </div>
+      <div class="black-white-content" #gridWrap>
+            <div class="grid-header">
+                  <div class="grid-filter">
+                        <!-- 검색필터 임시 조치, 개선 -->
+                              <!--<mat-select placeholder="{{ 'data_table.field' | translate }}" [(ngModel)]="searchField" class="grid-field-select">-->
+                              <!--  <mat-option *ngFor="let item of searchFieldOptions" [value]="item.field">{{item.label}}</mat-option>-->
+                              <!-- </mat-select>-->
+                        <dti-table-dynamic-filter [filterFields]="searchFieldOptions" (action)="searchFilter($event)"></dti-table-dynamic-filter>
+                              <!-- <input class="search-input" type="text" [(ngModel)]="searchValue" placeholder="{{ 'data_table.input_filter' | translate }}" (change)="searchGrid()"/>-->
+                  </div>
+                  <!--<div class="grid-header-spacer"></div>-->
+                  <div class="grid-options">
+                        <button mat-button matTooltip="{{ 'data_table.auto_size_all' | translate }}" (click)="autoSizeAll()"><mat-icon>view_array</mat-icon></button>
+                        <button mat-button matTooltip="{{ 'data_table.column_to_fit' | translate }}" (click)="sizeColumnsToFit()"><mat-icon>keyboard_tab</mat-icon></button>
+                        <!--<button mat-button matTooltip="{{ 'data_table.set_column' | translate }}" (click)="gridSettingView = !gridSettingView"><mat-icon>settings</mat-icon></button>-->
+                        <div class="grid-options-settings" [ngClass]="{'active': gridSettingView}">
+                              <h5>{{ 'data_table.set_column' | translate }}</h5>
+                              <button mat-button class="close-btn" (click)="gridSettingView = false"><mat-icon>clear</mat-icon></button>
+                              <ul>
+                                    <li *ngFor="let col of columnDefs; let i = index">
+                                          <mat-checkbox [(ngModel)]="col.colVisible" (change)="setCellVisible(col.field, col.colVisible)">{{col.headerName}}</mat-checkbox>
+                                    </li>
+                              </ul>
+                        </div>
+                  </div>
+            </div>
+            <div *ngIf="totalCnt > 0; then thenTemplateName else elseTemplateName"> </div>
+            <ng-template #thenTemplateName>
+                  <div style="flex:1;">
+                        <ag-grid-angular [ngStyle]="{'height': '100%'}" class="ag-theme-fresh" [gridOptions]="gridOptions"  [columnDefs]="columnDefs" [rowData]="rowData$">
+                        </ag-grid-angular>
+                  </div>
+            </ng-template>
+            <ng-template #elseTemplateName>
+                  <div class="no-data" style="flex:1;">
+                        <p>No Data</p>
+<!--                        <ag-grid-angular [ngStyle]="{'height': '100%'}" class="ag-theme-fresh" [gridOptions]="gridOptions"  [columnDefs]="columnDefs" [rowData]="null">-->
+<!--                        </ag-grid-angular>-->
+                  </div>
+            </ng-template>
+            <div class="grid-footer">
+                  <pagination [pager]="pager" [currentPage]="currentPage" [size]="pageSize" [total]="totalCnt" [pagingView]="true" (getList)="getData($event)">
+                  </pagination>
+            </div>
+      </div>
+</div>

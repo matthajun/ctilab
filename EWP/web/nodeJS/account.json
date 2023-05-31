@@ -1,0 +1,137 @@
+{
+  "name": "account",
+  "description": "사용자",
+  "base": "User",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "mysql": {
+      "schema": "dti",
+      "table": "account"
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "index": true,
+      "description": "UUID"
+    },
+    "email": {
+      "type": "string",
+      "index": true,
+      "description": "Email(Hidden, PK)"
+    },
+    "mail": {
+      "type": "string",
+      "index": true,
+      "description": "Email(Show, 중복허용)"
+    },
+    "password": {
+      "type": "string",
+      "index": false,
+      "description": "password : sha512 encrypted"
+    },
+    "contact": {
+      "type": "string",
+      "description": "연락처"
+    },
+    "fullname": {
+      "type": "string",
+      "description": "유저 실명"
+    },
+    "mobile": {
+      "type": "string",
+      "description": "휴대폰"
+    },
+    "role": {
+      "type": "string",
+      "description": "역할 정의"
+    },
+    "last_login": {
+      "type": "date",
+      "description": "가장 마지막 로그온한 날짜"
+    },
+    "description": {
+      "type": "string",
+      "description": "유저에 관한 상세 설명"
+    },
+    "realm": {
+      "type": "string",
+      "description": "소속"
+    },
+    "username": {
+      "type": "string",
+      "description": "아이디"
+    },
+    "credentials": {
+      "type": "object",
+      "description": "자격"
+    },
+    "challenges": {
+      "type": "object",
+      "description": ""
+    },
+    "emailVerified": {
+      "type": "boolean",
+      "description": "이메일 인증여부"
+    },
+    "status": {
+      "type": "string",
+      "description": "상태: 사용 active, 미사용 inactive, 삭제 deleted"
+    },
+    "created": {
+      "type": "date",
+      "description": "생성일"
+    },
+    "lastUpdated": {
+      "type": "date",
+      "description": "최근수정일"
+    },
+    "equipments": {
+      "type": "object",
+      "description": "접근가능장비 목록(JSON)"
+    },
+    "dept": {
+      "type": "string",
+      "description": "소속"
+    },
+    "pwdChgCnt": {
+      "type": "Number",
+      "description": "비밀번호 변경 횟수"
+    },
+    "ipList" : {
+      "type": "array",
+      "description": "ipList"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "forceUpdate",
+      "accessType": "*"
+    }
+  ],
+  "methods": {},
+  "ttl": 1800,
+  "ttl_comment": "자동로그아웃 시간, config.json > token_ttl == ttl - 9*60*60 "
+
+
+}

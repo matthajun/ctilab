@@ -1,0 +1,55 @@
+<div class="system-management-wrap">
+  <div class="system-management-header">
+    <h3>{{ 'motie_asset_manage.title' | translate }}</h3>
+    <p>{{ 'motie_asset_manage.text' | translate }}</p>
+<!--    <div class="btn-area" *ngIf="roleCheck()">-->
+    <div class="btn-area" >
+<!--      <a>-->
+<!--        <button mat-stroked-button matTooltip="{{ 'buttons.download_asset' | translate }}" (click)="downloadDevice('csv')" ><mat-icon>file_download</mat-icon> {{'buttons.download_asset' | translate }}</button>-->
+<!--      </a>-->
+      <a mat-stroked-button (click)="uploadFile()" matTooltip="{{ 'buttons.upload_all_file' | translate }}"><mat-icon>file_upload</mat-icon> {{'buttons.upload_all_file' | translate }}</a>
+<!--      <a href="/assets/data/motie_sample_file.xlsx" target="_blank" download="motie_sample_file.xlsx">-->
+      <a>
+        <button mat-stroked-button matTooltip="{{ 'buttons.download_file' | translate }}" (click)="downloadFile()"><mat-icon>file_download</mat-icon> {{'buttons.download_file' | translate }}</button>
+      </a>
+    </div>
+  </div>
+  <div class="grid-header">
+<!--    <form class="grid-filter" [formGroup]="searchForm">
+      <mat-select placeholder="{{ 'data_table.field' | translate }}" formControlName="searchField" (selectionChange)="searchFieldChange($event)" class="grid-field-select">
+        <mat-option [value]="">{{'forms.select_default' | translate}}</mat-option>
+        <mat-option *ngFor="let item of searchFieldOptions" [value]="item.field">{{item.label}}</mat-option>
+      </mat-select>
+      <input class="search-input" type="text" formControlName="searchValue" placeholder="{{ 'data_table.input_filter' | translate }}" (change)="searchGrid()"/>
+      <span class="btn-search-clear" *ngIf="searchValue" (click)="clearValue()"><i class="fa fa-times-circle"></i></span>
+    </form>-->
+
+    <dti-table-dynamic-filter [filterFields]="searchFieldOptions" (action)="searchFilter($event)"></dti-table-dynamic-filter>
+    <div class="grid-header-spacer"></div>
+    <div class="grid-options">
+      <button mat-button matTooltip="{{ 'data_table.auto_size_all' | translate }}" (click)="autoSizeAll()"><mat-icon>view_array</mat-icon></button>
+      <button mat-button matTooltip="{{ 'data_table.column_to_fit' | translate }}" (click)="sizeColumnsToFit()"><mat-icon>keyboard_tab</mat-icon></button>
+      <button mat-button matTooltip="{{ 'data_table.set_column' | translate }}" (click)="gridSettingView = !gridSettingView"><mat-icon>settings</mat-icon></button>
+      <div class="grid-options-settings" [ngClass]="{'active': gridSettingView}">
+        <h5>{{ 'data_table.set_column' | translate }}</h5>
+        <button mat-button class="close-btn" (click)="gridSettingView = false"><mat-icon>clear</mat-icon></button>
+        <ul>
+          <li *ngFor="let col of columnDefs; let i = index">
+            <mat-checkbox [color]="'primary'" [(ngModel)]="col.colVisible" (change)="setCellVisible(col.field, col.colVisible)">{{col.headerName}}</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+      <div class="grid-options-settings-bg" (click)="gridSettingView = false" [ngClass]="{'active': gridSettingView}"></div>
+
+    </div>
+  </div>
+  <div class="grid-wrap" #gridWrap>
+    <ag-grid-angular [ngStyle]="{'height': gridHeight}" class="ag-theme-fresh" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData$?.data">
+    </ag-grid-angular>
+    <div class="loading-wrap" *ngIf="loading"><mat-spinner [diameter]="50"></mat-spinner></div>
+  </div>
+  <pagination  [total]="pager.totalCnt" [pagingView]="false"  style="height:50px;">
+  </pagination>
+</div>
+
+<swal #uploadFileSwalComplete title="{{ 'message.create_error_title' | translate:msg }}" text="{{ 'message.delete_complete_msg' | translate:msg }}" type="error" [options]="swalOptions"></swal>

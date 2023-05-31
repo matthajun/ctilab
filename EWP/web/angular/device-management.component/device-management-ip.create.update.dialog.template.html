@@ -1,0 +1,58 @@
+<h1 mat-dialog-title> {{'' | translate}} {{title}}</h1>
+<form [formGroup]="Form" (ngSubmit)="onSubmit()" >
+  <div mat-dialog-content style="padding-top:10px;">
+    <div class="flex-input" hidden>
+      <div class="field">
+        <input class="form-control" formControlName="id" placeholder="{{'motie_asset_manage.id' | translate}}" required readonly/>
+      </div>
+    </div>
+<!--    <div class="flex-input">-->
+<!--      <div class="field">-->
+<!--        <label class="required">{{'motie_asset_manage.station' | translate}}</label>-->
+<!--        <select #staitionIdValue class="form-control" formControlName="stationId" required >-->
+<!--          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.station" | translate}}</option>-->
+<!--          <option *ngFor="let item of stationNmList" [value]="item.stationId"> {{item.stationNm}}</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="field">-->
+<!--        <label class="reqiured">{{'motie_asset_manage.power' | translate}}</label>-->
+<!--        <select #powerGenIdValue class="form-control" formControlName="powerGenId" required>-->
+<!--          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.power" | translate}}</option>-->
+<!--          <option *ngFor="let item of powerGenNmList" [value]="item.powerGenId">{{item.powerGenNm}}</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="flex-input">
+      <div class="field">
+        <label>{{'motie_asset_manage.asset_hogi' | translate}}</label>
+        <select class="form-control" formControlName="assetHogiCode" >
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.asset_hogi" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.hogiCmnCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>{{'motie_asset_manage.mnufctur_cor' | translate}}</label>
+        <select class="form-control" formControlName="mnufcturCor" >
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.mnufctur_cor" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.manufCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.ip' | translate}}</label>
+        <input class="form-control" formControlName="motieAssetIp" placeholder="{{'motie_asset_manage.ip' | translate}}"
+          required />
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_mac_addr' | translate}}</label>
+        <input class="form-control" formControlName="assetMacAddrs" placeholder="{{'motie_asset_manage.asset_mac_addr' | translate}}"
+           required />
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button type="button" (click)="onNoClick()">{{'buttons.cancel' | translate}}</button>
+    <button mat-raised-button color="primary" [disabled]="!Form.valid">{{'buttons.submit' | translate}}</button>
+  </div>
+</form>

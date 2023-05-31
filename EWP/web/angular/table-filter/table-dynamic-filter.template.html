@@ -1,0 +1,32 @@
+<div class="table-filter-wrap">
+  <div class="table-filter-container" *ngFor="let item of sendFilter; let i = index" >
+    <div class="input-group" *ngIf="filterFields.length !== 1">
+      <div class="input-group-prepend">
+        <select class="form-control" [(ngModel)]="item.field" (ngModelChange)="valChange($event, i)">
+          <option [value]="''" selected disabled>{{'buttons.select'| translate}}</option><!--hidden disabled-->
+          <option *ngFor="let option of fields[i]" [value]="option.field">{{option.label}}</option>
+        </select>
+      </div>
+      <label>
+        <input *ngIf="item.type !=='select'" type="text" class="form-control" [(ngModel)]="item.value" (ngModelChange)="changeValue($event)" maxlength="45"/>
+      </label>
+      <label>
+        <select  class="form-control" *ngIf="item.type ==='select'" [(ngModel)]="item.value" (ngModelChange)="changeValue($event)">
+          <option [value]="''" hidden disabled selected>{{"buttons.select" | translate}}</option>
+          <option *ngFor="let op of item.option" [value]="op.value">{{op.label}}</option>
+        </select>
+      </label>
+      <div class="input-group-append" *ngIf="sendFilter.length > 1">
+        <button class="btn btn-outline-secondary" [style.marginRight]="sendFilter.length - 1 === i ? 0 : '30px'" (click)="removeFilter(i, item)"> - </button>
+      </div>
+    </div>
+      <div class="input-group mb-3" *ngIf="filterFields.length === 1">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3" style="font-size: 13px; background: #ebebf2; color: #747c8c;">{{filterFields[0].label}}</span><!--(ngModelChange)="valChange(item.field)" -->
+        </div>
+         <input type="text" class="form-control" [(ngModel)]="item.value" (ngModelChange)="changeSearchValue($event)" maxlength="45"/>
+      </div>
+<!--      <button class="btn btn-outline-secondary plus" (click)="addFilter(i)" style="width:35px;" *ngIf="Button && filterFields.length !== 1 && selected[i]"> + </button>-->
+  </div>
+        <button class="btn btn-outline-secondary plus" (click)="addFilter()" style="width:35px; margin: 0.4rem 0;" *ngIf="Button && filterFields.length !== 1"> + </button>
+</div>

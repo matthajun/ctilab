@@ -1,0 +1,15 @@
+<h1 mat-dialog-title> {{'reports_template.delete_title' | translate: data.data}} </h1>
+<button class="dialog-close" mat-button (click)="onNoClick()"><mat-icon>clear</mat-icon></button>
+<div mat-dialog-content class="deleteMsgWrap">
+  <div class="warningIcon">
+    <mat-icon>report_problem</mat-icon>
+  </div>
+  <h3>{{'communi.delete_title' | translate: data.data}}</h3>
+  <p>{{'communi.delete_txt' | translate}}</p>
+</div>
+<div mat-dialog-actions class="deleteBtn">
+  <button mat-raised-button type="button" (click)="onNoClick()">{{'buttons.cancel' | translate}}</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">{{'buttons.delete' | translate}}</button>
+</div>
+
+

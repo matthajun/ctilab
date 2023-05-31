@@ -1,0 +1,91 @@
+{
+  "name": "CommuniWhiteList",
+  "base": "PersistedModel",
+  "strict": false,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "mysql": {
+    "schema": "dti",
+    "table": "communi_white_list"
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "일련번호"
+    },
+    "stationId": {
+      "type": "string"
+    },
+    "powerGenId": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "make": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "protocolType": {
+      "type": "string"
+    },
+    "detailProtocol": {
+      "type": "string"
+    },
+    "srcIp": {
+      "type": "string",
+      "description": "출발지 ip"
+    },
+    "dstIp": {
+      "type": "string",
+      "description": "도착지 ip"
+    },
+    "srcPort": {
+      "type": "string",
+      "description": "출발지 port"
+    },
+    "dstPort": {
+      "type": "string",
+      "description": "도착지 port"
+    },
+    "fstUser": {
+      "type": "string",
+      "description": "등록 사용자"
+    },
+    "lstUser": {
+      "type": "string",
+      "description": "수정 사용자"
+    },
+    "lstDttm": {
+      "type": "date",
+      "description": "수정 시간"
+    },
+    "fstDttm": {
+      "type": "date",
+      "description": "등록 시간"
+    },
+    "state": {
+      "type": "string",
+      "description": "생성 C, 삽입 I, 수정 U, 배포 E, 삭제 D"
+    },
+    "deploy": {
+      "type": "string",
+      "description": "배포 Y 안함 N"
+    },
+    "sanGubun": {
+      "type": "number",
+      "description": "단위 구분"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

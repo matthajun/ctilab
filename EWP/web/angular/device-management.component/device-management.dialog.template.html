@@ -1,0 +1,254 @@
+<h1 mat-dialog-title> {{'motie_asset_manage.title' | translate}} {{title}}</h1>
+<button class="dialog-close" mat-button (click)="onNoClick()">
+  <mat-icon>clear</mat-icon>
+</button>
+
+<form [formGroup]="Form" (ngSubmit)="onSubmit()" *ngIf="data.mode !== 'del'">
+  <div mat-dialog-content style="padding-top:10px;">
+  <div class="flex-input" hidden *ngIf="data.mode === 'new'">
+        <div class="field">
+              <label class="required">{{'motie_asset_manage.id' | translate}}</label>
+              <input class="form-control" formControlName="id" placeholder="{{'motie_asset_manage.id' | translate}}" required readonly/>
+        </div>
+  </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.ip' | translate}}</label>
+        <input class="form-control" formControlName="motieAssetIp" placeholder="{{'motie_asset_manage.ip' | translate}}"
+               (keyup)="ipValidate($event)" required readonly (click)="onIpClick()"/>
+      </div>
+<!--      <div class="field">
+        <label class="required">{{'motie_asset_manage.host_info' | translate}}</label>
+        <input class="form-control" formControlName="hostInfo"
+               placeholder="{{'motie_asset_manage.host_info' | translate}}"
+               required/>
+      </div>-->
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.station' | translate}}</label>
+        <select #staitionIdValue class="form-control" formControlName="stationId" required
+                (change)="stationIdChange($event.target.value);">
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.station" | translate}}</option>
+          <option *ngFor="let item of stationNmList" [value]="item.stationId"> {{item.stationNm}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-input" *ngIf="data.mode !== 'new'">
+      <div class="field">
+        <label *ngIf="IperrorMassage" style="color: red;">{{'motie_asset_manage.error_message' | translate}}</label>
+      </div>
+      <div class="field"></div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.power' | translate}}</label>
+        <select #powerGenIdValue class="form-control" formControlName="powerGenId" required>
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.power" | translate}}</option>
+          <option *ngFor="let item of powerGenNmList" [value]="item.powerGenId">{{item.powerGenNm}}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_hogi' | translate}}</label>
+        <select class="form-control" formControlName="assetHogiCode" required>
+          <option [value]="''" hidden disabled selected>{{"aseet_protocol.asset_hogi" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.hogiCmnCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_high_class_code' | translate}}</label>
+        <select class="form-control" formControlName="assetHighClassCode" required>
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.asset_high_class_code" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.highClassCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_class' | translate}}</label>
+        <select class="form-control" formControlName="assetClassCode" required>
+          <option [value]="''" hidden disabled selected>{{"aseet_protocol.asset_class" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.divGubunCmnCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+      <!--      <div class="field">
+              <label class="required">{{'motie_asset_manage.responsibility_user' | translate}}</label>
+              <input class="form-control" formControlName="responsibilityUser"
+                     placeholder="{{'motie_asset_manage.responsibility_user' | translate}}"
+                     required/>
+            </div>-->
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_nm' | translate}}</label>
+        <input class="form-control" formControlName="assetNm"
+               placeholder="{{'motie_asset_manage.asset_nm' | translate}}"
+               required/>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.mnufctur_cor' | translate}}</label>
+        <select class="form-control" formControlName="mnufcturCor" required>
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.mnufctur_cor" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.manufCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_type' | translate}}</label>
+        <input class="form-control" formControlName="assetType"
+               placeholder="{{'motie_asset_manage.asset_type' | translate}}"
+               required/>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.aseet_protocol' | translate}}</label>
+        <select class="form-control" formControlName="assetProtocol" required>
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.aseet_protocol" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.assetProtocolCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_sn_num' | translate}}</label>
+        <input class="form-control" formControlName="assetSnNum"
+               placeholder="{{'motie_asset_manage.asset_sn_num' | translate}}"
+               (keyup)="ipValidate($event)" required/>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_firmware_ver' | translate}}</label>
+        <input class="form-control" formControlName="assetFirmwareVer"
+               placeholder="{{'motie_asset_manage.asset_firmware_ver' | translate}}"
+               required/>
+      </div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_model_nm' | translate}}</label>
+        <input class="form-control" formControlName="assetModelNm"
+               placeholder="{{'motie_asset_manage.asset_model_nm' | translate}}"
+               (keyup)="ipValidate($event)" required/>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_position' | translate}}</label>
+        <input class="form-control" formControlName="assetPosition"
+               placeholder="{{'motie_asset_manage.asset_position' | translate}}"
+               required/>
+      </div>
+    </div>
+<!--    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.operator_user' | translate}}</label>
+        <input class="form-control" formControlName="operatorUser"
+               placeholder="{{'motie_asset_manage.operator_user' | translate}}"
+               required/>
+      </div>
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.operator_dept_id' | translate}}</label>
+        <input class="form-control" formControlName="operatorDeptId"
+               placeholder="{{'motie_asset_manage.operator_dept_id' | translate}}"
+               required/>
+      </div>
+    </div>-->
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.acquire_date' | translate}}</label>
+        <input class="form-control" formControlName="acquireDate"
+               placeholder="{{'motie_asset_manage.acquire_date' | translate}}"
+               readonly ngbDatepicker #sd="ngbDatepicker" (click)="sd.toggle()" required/>
+      </div>
+      <div class="field">
+      <label class="required">{{'motie_asset_manage.asset_use_ysno' | translate}}</label>
+        <select class="form-control" formControlName="assetUseYsno" required>
+          <option [value]="''" hidden disabled selected>{{"motie_asset_manage.asset_use_ysno" | translate}}</option>
+          <option value="Y">{{'motie_asset_manage.asset_use_yes' | translate}}</option>
+          <option value="N">{{'motie_asset_manage.asset_use_no' | translate}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-input">
+      <div class="field">
+        <label class="required">OS</label>
+        <select class="form-control" formControlName="os" required>
+          <option [value]="''" hidden disabled selected>{{"aseet_protocol.asset_use_ysno" | translate}}</option>
+          <option *ngFor="let item of cmnCodeList.osCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+        </select>
+      </div>
+<!--      <div class="field">-->
+<!--        <label class="required">{{'motie_asset_manage.asset_mac_addr' | translate}}</label>-->
+<!--        <input class="form-control" formControlName="assetMacAddr"-->
+<!--               placeholder="{{'motie_asset_manage.asset_mac_addr' | translate}}"-->
+<!--               required/>-->
+<!--      </div>-->
+      <div class="field">
+        <label class="required">{{'motie_asset_manage.asset_mac_addr' | translate}}</label>
+        <input class="form-control" formControlName="assetMacAddrs"
+          placeholder="{{'motie_asset_manage.asset_mac_addr' | translate}}"
+          readonly
+          (click)="onMacClick()"/>
+      </div>
+    </div>
+    <div class="flex-input" *ngIf="data.mode !== 'new'">
+      <div class="field"></div>
+      <div class="field">
+        <label *ngIf="MacerrorMassage" style="color: red;">{{'motie_asset_manage.error_message' | translate}}</label>
+      </div>
+    </div>
+    <!--
+
+    <div class="flex-field">
+      <mat-form-field>
+        <input matInput formControlName="operatorUser" placeholder="{{'motie_asset_manage.operator_user' | translate}}"
+               required/>
+        <mat-hint align="start"><strong>{{ipMsg}}</strong></mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="operatorDeptId"
+               placeholder="{{'motie_asset_manage.operator_dept_id' | translate}}"
+               required/>
+        <mat-hint align="start"><strong>{{ipMsg}}</strong></mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="flex-field">
+      <mat-form-field>
+        <input matInput formControlName="acquireDate"
+                                             placeholder="{{'motie_asset_manage.acquireDate' | translate}}" readonly ngbDatepicker #sd="ngbDatepicker"
+                                             (click)="sd.toggle()"/>
+        <mat-hint align="start"><strong>{{ipMsg}}</strong></mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="assetUseYsno" placeholder="{{'motie_asset_manage.asset_use_ysno' | translate}}"
+               required/>
+        <mat-hint align="start"><strong>{{ipMsg}}</strong></mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="flex-field">
+      <mat-form-field>
+        <input matInput formControlName="assetMacAddr" placeholder="{{'motie_asset_manage.asset_mac_addr' | translate}}"
+               required/>
+        <mat-hint align="start"><strong>{{ipMsg}}</strong></mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="assetImportanceId"
+               placeholder="{{'motie_asset_manage.asset_importance_id' | translate}}"
+               required/>
+        <mat-hint align="start"><strong>{{ipMsg}}</strong></mat-hint>
+      </mat-form-field>
+    </div>-->
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button type="button" (click)="onNoClick()">{{'buttons.cancel' | translate}}</button>
+    <button mat-raised-button color="primary" [disabled]="!Form.valid">{{'buttons.submit' | translate}}</button>
+  </div>
+</form>
+<div *ngIf="data.mode === 'del'">
+  <div mat-dialog-content class="deleteMsgWrap">
+    <div class="warningIcon">
+      <mat-icon>report_problem</mat-icon>
+    </div>
+    <h3>{{'motie_asset_manage.delete_title' | translate: data}}</h3>
+    <p>{{'motie_asset_manage.delete_txt' | translate}}</p>
+  </div>
+  <div mat-dialog-actions class="deleteBtn">
+    <button mat-raised-button type="button" (click)="onNoClick()">{{'buttons.cancel' | translate}}</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">{{'buttons.delete' | translate}}</button>
+  </div>
+</div>

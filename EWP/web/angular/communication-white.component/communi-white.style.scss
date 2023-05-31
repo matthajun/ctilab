@@ -1,0 +1,223 @@
+.black-white-wrap {
+  display:flex;
+  height:100%;
+  width:100%;
+  overflow:hidden;
+  .black-white-container {
+    height:100%;
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    overflow:hidden;
+  }
+
+  .black-white-container:first-child {
+    border-right:1px solid #DDD;
+  }
+}
+
+.black-white-header {
+  display:flex;
+  background:rgba(255,255,255,.8);
+  border-bottom:1px solid #DDD;
+  height:40px;
+  .black-white-header-spacer {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+  }
+  h4 {
+    font-size:14px;
+    font-weight:600;
+    margin:0;
+    padding:0 0 0 20px;
+    height:40px;
+    line-height:40px;
+  }
+  .btn-area {
+
+    line-height: 40px;
+
+    .mat-button {
+      min-width:0;
+      height:40px;
+      font-size:12px;
+      padding:0 15px;
+      .mat-icon {
+        width:20px;
+        height:20px;
+        font-size:20px;
+        color:rgba(0,0,0,0.5);
+      }
+      i.fa {
+        color:rgba(0,0,0,0.5);
+      }
+      .mat-button-ripple {
+        border-radius: 50%;
+      }
+    }
+
+    .mat-stroked-button {
+      border:1px solid #AAA;
+      font-size:12px;
+      height:30px;
+      line-height:30px;
+      color:#666;
+      min-width:0;
+      margin-right:8px;
+      padding: 0 9px;
+      .mat-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.5);
+        vertical-align: text-bottom;
+      }
+      i.fa {
+        color:rgba(0,0,0,0.5);
+      }
+    }
+
+  }
+}
+
+.grid-header {
+  font-size:12px;
+  padding:0 20px;
+  line-height:35px;
+  height:35px;
+  display:flex;
+  position:relative;
+  .grid-header-spacer {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+  }
+  .grid-filter {
+    flex:1;
+    white-space: nowrap;
+    .mat-select {
+      width:80px;
+    }
+    input.search-input {
+      border:none;
+      background:transparent;
+      margin-left:10px;
+      padding:0 10px;
+    }
+    input.search-input:focus {
+      background:white;
+    }
+  }
+  .grid-date-range {
+    display: inline-block;
+    border-left:1px solid #DDD;
+    border-right:1px solid #DDD;
+    padding-left:10px;
+  }
+  .grid-options {
+    border-left:1px solid #DDD;
+    .grid-options-settings {
+      position:absolute;
+      min-width: 300px;
+      top:35px;
+      right:20px;
+      background:white;
+      z-index:1000;
+      padding:20px;
+      -webkit-transition: all 200ms ease-in-out;
+      -webkit-transform: scale(0);
+      -ms-transition: all 200ms ease-in-out;
+      -ms-transform: scale(0);
+      -moz-transition: all 200ms ease-in-out;
+      -moz-transform: scale(0);
+      transition: all 200ms ease-in-out;
+      transform: scale(0);
+      transform-origin: top right;
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+      h5 {
+        font-size: 16px;
+        margin:0;
+        padding:0;
+      }
+      .close-btn {
+        position:absolute;
+        top:20px;
+        right:20px;
+        border-radius:50%;
+        .mat-button-focus-overlay, .mat-button-ripple {
+          border-radius: 50% !important;
+        }
+      }
+      ul {
+        li {
+          .mat-checkbox-inner-container {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+    .grid-options-settings.active {
+      -webkit-transition: all 200ms ease-in-out;
+      -webkit-transform: scale(1);
+      -ms-transition: all 200ms ease-in-out;
+      -ms-transform: scale(1);
+      -moz-transition: all 200ms ease-in-out;
+      -moz-transform: scale(1);
+      transition: all 200ms ease-in-out;
+      transform: scale(1);
+    }
+  }
+
+  .mat-button {
+    min-width:0;
+    font-size:12px;
+    line-height:35px;
+    height:35px;
+    padding:0 8px;
+    .mat-icon {
+      width:18px;
+      height:18px;
+      font-size:18px;
+    }
+  }
+}
+
+.black-white-content {
+  height:100%;
+  display:flex;
+  flex-direction: column;
+}
+
+.versionInfoBox {
+  text-align: left;
+  padding:15px; border:1px solid #DDD; margin:23px 0 0 0;
+  ul {
+    margin:0;
+    padding:0;
+    font-size:12px;
+    li {
+      display:block;
+      line-height:35px;
+      height:35px;
+      color:#999;
+      span {
+        display:inline-block;
+        width:100px;
+        font-weight:bold;
+        color:#333;
+      }
+    }
+  }
+}
+
+.no-data {
+      top: 30px;
+      height: 100%;
+      font-size:25px;
+      text-align: center;
+      background-color: #eee;
+      vertical-align: middle;
+      font-weight:bold;
+}

@@ -1,0 +1,83 @@
+<h1 mat-dialog-title> {{title}}</h1>
+<button class="dialog-close" mat-button (click)="onNoClick()"><mat-icon>clear</mat-icon></button>
+<div mat-dialog-content >
+  <div>
+    <div style="font-size: 3px; margin-top:1px; float:right;">
+      <mat-slide-toggle [color]="'primary'" [checked]="data.data.status" (change)="changeStatus()">
+        {{'rule_single.deploy' | translate}}
+      </mat-slide-toggle>
+    </div>
+  <div class="input-field">
+    <label class="required">{{'motie_asset_manage.station' | translate}}</label>
+    <select #staitionIdValue class="form-control" [(ngModel)]="data.data.stationId" required
+            (change)="stationIdChange($event.target.value);">
+      <option [value]="'DS'"  disabled selected>한국동서발전</option>
+      <option *ngFor="let item of stationNm" [value]="item.stationId"> {{item.stationNm}}</option>
+    </select>
+  </div>
+    <div class="input-field">
+      <label class="required">{{'motie_asset_manage.power' | translate}}</label>
+      <select #powerGenIdValue class="form-control" [(ngModel)]="data.data.powerGenId" required>
+        <option [value]="'DS_001'"  disabled selected>당진화력발전본부</option>
+        <option *ngFor="let item of powerGenNmList" [value]="item.powerGenId">{{item.powerGenNm}}</option>
+      </select>
+    </div>
+    <div class="input-field">
+      <label class="required">{{'motie_asset_manage.asset_hogi' | translate}}</label>
+      <select #staitionIdValue class="form-control" [(ngModel)]="data.data.unit" required>
+        <option [value]="''" hidden disabled selected>{{"motie_asset_manage.asset_hogi" | translate}}</option>
+        <option *ngFor="let item of cmnCodeList.hogiCmnCodeList.codeList" [value]="item.codeID"> {{item.codeNM}}</option>
+      </select>
+    </div>
+    <div class="input-field">
+      <label class="required">{{'motie_asset_manage.mnufctur_cor' | translate}}</label>
+      <select #powerGenIdValue class="form-control" [(ngModel)]="data.data.make" required>
+        <option [value]="''" hidden disabled selected>{{"motie_asset_manage.mnufctur_cor" | translate}}</option>
+        <option *ngFor="let item of cmnCodeList.manufCmnCodeList.codeList" [value]="item.codeID">{{item.codeNM}}</option>
+      </select>
+    </div>
+  <div class="input-field">
+    <label>{{'b&w.name' | translate}}</label>
+    <input class="form-control" [(ngModel)]="data.data.name" placeholder="Insert {{'b&w.name' | translate}}"   (keyup)="nameValidate($event)" required/>
+    <div class="error invalid-feedback">{{namepassMsg}} </div>
+  </div>
+    <div class="input-field">
+      <label class="required">{{'motie_asset_manage.aseet_protocol' | translate}}</label>
+      <select class="form-control" [(ngModel)]="data.data.protocolType" required>
+        <option [value]="''" hidden disabled selected>{{"motie_asset_manage.aseet_protocol" | translate}}</option>
+        <option *ngFor="let item of cmnCodeList.assetProtocolCodeList.codeList" [value]="item.codeNM">{{item.codeNM}}</option>
+      </select>
+    </div>
+  <div class="input-field">
+    <label>{{'communi.detailProtocol' | translate}}</label>
+    <input class="form-control" [(ngModel)]="data.data.detailProtocol" placeholder="Insert {{'communi.detailProtocol' | translate}}" (keyup)="dprotocolValidate($event)" required/>
+    <div class="error invalid-feedback">{{dprotocolpassMsg}} </div>
+  </div>
+    <div class="input-field">
+      <label>{{'b&w.srcIp' | translate}}</label>
+      <input class="form-control" [(ngModel)]="data.data.srcIp" placeholder="Insert {{'b&w.srcIp' | translate}}"  (keyup)="siValidate($event)" required/>
+      <div class="error invalid-feedback">{{sipassMsg}} </div>
+    </div>
+    <div class="input-field">
+      <label>{{'b&w.dstIp' | translate}}</label>
+      <input class="form-control" [(ngModel)]="data.data.dstIp" placeholder="Insert {{'b&w.dstIp' | translate}}" (keyup)="diValidate($event)" required/>
+      <div class="error invalid-feedback">{{dipassMsg}} </div>
+    </div>
+    <div class="input-field">
+      <label>{{'b&w.srcPort' | translate}}</label>
+      <input class="form-control" type="number" [(ngModel)]="data.data.srcPort" placeholder="Insert {{'b&w.srcPort' | translate}}" (keyup)="spValidate($event)" required/>
+      <div class="error invalid-feedback">{{sppassMsg}} </div>
+    </div>
+    <div class="input-field">
+      <label>{{'b&w.dstPort' | translate}}</label>
+      <input class="form-control" [(ngModel)]="data.data.dstPort" placeholder="Insert {{'b&w.dstPort' | translate}}" (keyup)="dpValidate($event)" required/>
+      <div class="error invalid-feedback">{{dppassMsg}} </div>
+    </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">{{'buttons.cancel' | translate}}</button>
+    <button mat-raised-button color="primary" (click)="Submit()">{{'buttons.submit' | translate}}</button> <!-- cdkFocusInitial -->
+  </div>
+
